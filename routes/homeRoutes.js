@@ -8,12 +8,12 @@ const { Workout } = require('../models');
   });
 
   router.get("/exercise", (req, res) => {
-    console.log(__dirname);
+
     res.sendFile(path.join(__dirname, "../public/exercise.html"));
   });
 
 router.get("/stats", (req, res) => {
-    console.log(__dirname);
+
     res.sendFile(path.join(__dirname, "../public/stats.html"));
   });
   
