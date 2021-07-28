@@ -4,10 +4,9 @@ const { Workout } = require("../models");
 
 
 router.get("/workouts", (req, res) => {
-
-  Workout.find({})
-    .then((dbWorkout) => {
-      console.log(dbWorkout);
+  Workout.aggregate([
+    { $addFields: { totalDuration: { $sum: "$exercises.duration" } } },
+  ]).then((dbWorkout) => {
       res.json(dbWorkout);
     })
     .catch((err) => {
@@ -32,7 +31,6 @@ router.put("/workouts/:id", (req, res) => {
 });
 
 router.post("/workouts", ({ body }, res) => {
-  console.log("POST");
   Workout.create(body)
     .then((dbWorkout) => {
       res.json(dbWorkout);
@@ -43,9 +41,9 @@ router.post("/workouts", ({ body }, res) => {
 });
 
 router.get("/workouts/range", (req, res) => {
-  console.log("here");
-  Workout.find({})
-    .then((dbWorkout) => {
+  Workout.aggregate([
+    { $addFields: { totalDuration: { $sum: "$exercises.duration" } } },
+  ]).then((dbWorkout) => {
       res.json(dbWorkout);
     })
     .catch((err) => {
